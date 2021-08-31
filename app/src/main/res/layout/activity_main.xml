@@ -7,45 +7,98 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/finishButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="7dp"
+        android:text="Finish"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/buttonBusy"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <Switch
         android:id="@+id/switchUseless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="40dp"
         android:scaleX="3"
         android:scaleY="3"
-        app:layout_constraintBottom_toTopOf="@+id/ratingBar"
-        app:layout_constraintEnd_toEndOf="@+id/ratingBar"
-        app:layout_constraintStart_toStartOf="@+id/ratingBar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="spread" />
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarCaption"
+        app:layout_constraintStart_toStartOf="@+id/progressBarCaption" />
 
     <RatingBar
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSelf"
-        app:layout_constraintEnd_toEndOf="@+id/buttonSelf"
-        app:layout_constraintStart_toStartOf="@+id/buttonSelf"
-        app:layout_constraintTop_toBottomOf="@+id/switchUseless"
+        android:layout_marginTop="74dp"
+        android:layout_marginBottom="74dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/switchUseless"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/buttonSelf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="73dp"
         android:text="Self Destruct"
-        app:layout_constraintBottom_toTopOf="@+id/buttonBusy"
-        app:layout_constraintEnd_toEndOf="@+id/buttonBusy"
-        app:layout_constraintStart_toStartOf="@+id/buttonBusy"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonBusy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="38dp"
         android:text="Look Busy"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/cancelButton"
+        app:layout_constraintTop_toBottomOf="@+id/cancelButton" />
+
+    <TextView
+        android:id="@+id/progressBarCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="272dp"
+        android:text="Downloading Files..."
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSelf" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="38dp"
+        android:scaleX="7"
+        android:scaleY="5"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/progressBarCaption"
+        app:layout_constraintTop_toBottomOf="@+id/progressBarCaption" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="250dp"
+        android:backgroundTint="#74E82323"
+        android:text="Cancel"
+        android:visibility="invisible"
+        app:iconTint="#DC0A0A"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
