@@ -83,6 +83,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="33dp"
         android:layout_marginEnd="38dp"
+        android:max="100"
+        android:progress="20"
         android:scaleX="7"
         android:scaleY="5"
         android:visibility="invisible"

@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintSet.INVISIBLE
 import androidx.constraintlayout.widget.ConstraintSet.VISIBLE
 import java.util.*
 import kotlin.concurrent.schedule
+import kotlin.Unit as Unit1
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,17 +52,58 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("WrongConstant")
     private fun lookBusyScreen() {
+        progressBar.progress = 0
+        background.setBackgroundColor(Color.argb(100, 255, 255, 255))
+        cancelButton.setOnClickListener() {
+            uselessWidgets()
+        }
+        busyWidgets()
+        startLookBusyTimer()
+    }
+
+    @SuppressLint("WrongConstant")
+    private fun busyWidgets() {
+        finishButton.isEnabled = false
         switch.visibility = INVISIBLE
         buttonSelfDestruct.visibility = INVISIBLE
         buttonLookBusy.visibility = INVISIBLE
         rating.visibility = INVISIBLE
         cancelButton.visibility = VISIBLE
         finishButton.visibility = VISIBLE
-        progressBar.visibility = VISIBLE
         progressBarCaption.visibility = VISIBLE
+        progressBar.visibility = VISIBLE
+    }
 
+    @SuppressLint("WrongConstant")
+    private fun uselessWidgets() {
+        switch.visibility = VISIBLE
+        buttonSelfDestruct.visibility = VISIBLE
+        buttonLookBusy.visibility = VISIBLE
+        rating.visibility = VISIBLE
+        cancelButton.visibility = INVISIBLE
+        finishButton.visibility = INVISIBLE
+        progressBarCaption.visibility = INVISIBLE
+        progressBar.visibility = INVISIBLE
+    }
+
+    private fun startLookBusyTimer() {
+        val busyTimer = object : CountDownTimer(5150, 50) {
+            override fun onTick(millisUntilFinished: Long) {
+                progressBar.progress++
+            }
+
+            override fun onFinish() {
+                finishButton.isEnabled = true
+                finishButton.setOnClickListener() {
+                    uselessWidgets()
+                }
+
+            }
+
+        }
+
+        busyTimer.start()
     }
 
     private fun startSwitchTimer() {
@@ -82,30 +124,41 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startDestructTimer() {
-        var isRed = false
-        var flashDuration = 500
+        var flashDistance = 50
         var flashTimeout = 0
+        var flashCount = 0
+
+        val redTimer = object : CountDownTimer(250, 1) {
+            override fun onTick(millisUntilFinished: Long) {
+                background.setBackgroundColor(Color.argb(100, 255, 0 ,0))
+            }
+
+            override fun onFinish() {
+                background.setBackgroundColor(Color.argb(100, 255, 255 ,255))
+            }
+        }
 
         val uselessTimer = object : CountDownTimer(10000, 1) {
             override fun onTick(millisUntilFinished: Long) {
-                flashTimeout++
-                if(flashDuration <= flashTimeout) {
-                    if (!isRed) {
-                        background.setBackgroundColor(Color.argb(200, (((Math.random())*155)+ 100).toInt(), 0, 0))
-                    }
-                    else {
-                        background.setBackgroundColor(Color.argb(100, 255, 255, 255))
-                    }
-                    flashDuration -= 50
+                if (flashTimeout >= flashDistance) {
+                    flashCount++
                     flashTimeout = 0
+                    redTimer.start()
                 }
-                buttonSelfDestruct.text = "${millisUntilFinished}"
+                if (flashCount >= 5) {
+                    flashDistance -= 15
+                    flashCount = 0
+                }
+                flashTimeout++
+                buttonSelfDestruct.text = "${millisUntilFinished/1000}"
             }
 
             override fun onFinish() {
                 finish()
             }
         }
+
+
 
         uselessTimer.start()
     }
@@ -120,6 +173,7 @@ class MainActivity : AppCompatActivity() {
         finishButton = findViewById(R.id.finishButton)
         progressBar = findViewById(R.id.progressBar)
         progressBarCaption = findViewById(R.id.progressBarCaption)
+        progressBar.max = 100
 
     }
 }
